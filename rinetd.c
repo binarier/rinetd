@@ -264,7 +264,7 @@ int getConfLine(FILE *in, char *line, int space, int *lnum);
 
 int patternBad(char *pattern);
 
-void ror(char *buf, int len)
+void ror(unsigned char *buf, int len)
 {
 	int i;
 	for (i=0;i<len;i++)
@@ -1469,6 +1469,7 @@ void log(int i, int coSe, int result)
 				bytesOutput,	
 				logMessages[result]);
 		}
+		fflush(logFile);
 	}
 }
 
