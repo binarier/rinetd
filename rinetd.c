@@ -264,6 +264,15 @@ int getConfLine(FILE *in, char *line, int space, int *lnum);
 
 int patternBad(char *pattern);
 
+void ror(char *buf, int len)
+{
+	int i;
+	for (i=0;i<len;i++)
+	{
+		buf[i] = (buf[i]<<4) | (buf[i]>>4);
+	}
+}
+
 void readConfiguration(void)
 {
 	FILE *in;
@@ -854,6 +863,7 @@ void handleRemoteRead(int i)
 		handleCloseFromRemote(i);
 		return;
 	}
+	ror(coInput[i] + coInputRPos[i], got);
 	coBytesInput[i] += got;
 	coInputRPos[i] += got;
 }
@@ -911,6 +921,7 @@ void handleLocalRead(int i)
 		handleCloseFromLocal(i);
 		return;
 	}
+	ror(coOutput[i] + coOutputRPos[i], got);
 	coOutputRPos[i] += got;
 }
 
